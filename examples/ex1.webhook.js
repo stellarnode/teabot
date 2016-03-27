@@ -2,6 +2,7 @@
 
 const TeaBot = require('../main')('YOUR_TELEGRAM_BOT_TOKEN', 'YOUR_TELEGRAM_BOT_NAME');
 const express = require('express');
+const bodyParser = require('body-parser');
 const app = express();
 
 TeaBot.onError(function (e) {
@@ -15,6 +16,11 @@ TeaBot
   .defineCommand(function (dialog) {
     dialog.sendMessage('Send me /help for more information.');
   });
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 
 TeaBot.setWebhook('YOUR_URL_HERE');
 
